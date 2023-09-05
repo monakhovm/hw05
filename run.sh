@@ -67,7 +67,7 @@ set_packages() {
     postgresql_lib=postgresql-devel
 
 
-    if $package_manager="apt" then        
+    if [[ "$package_manager" -eq "apt" ]]; then        
         available_python_version=$(apt-cache madison python3 | grep -oP '\d+\.\d+' | head -n 1)
         devel_package="python${available_python_version}-dev"
         postgresql_lib=libpq-dev
