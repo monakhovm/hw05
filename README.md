@@ -30,24 +30,8 @@ The following environment variables must be set in a **.env** file located in th
 4. Run the script using **./script_name.sh**.
 5. Open **`localhost:DJANGO_PORT/admin`** webpage.
 
-## Script Details
-**`check_env_vars`** Function
-This function checks if all the required environment variables (`SQLITE_DB_NAME`, `DJANGO_SUPERUSER_USERNAME`, `DJANGO_SUPERUSER_EMAIL`, `DJANGO_SUPERUSER_PASSWORD`, `DJANGO_PORT`) are set in the `.env` file. If any of them is not set, the script exits with an error message.
-
-**`set_package_manager_and_packages`** Function
-This function determines the package manager of the system (`apt`, `dnf`, or `yum`) and sets the package installation command, parameter, and necessary packages accordingly.
-
-**`install_packages`** Function
-This function checks if the necessary packages (`python3-pip`, `git`, `sed`, `libpq-dev(portgresql-devel)`, `python<version>-dev(devel)`) are already installed. If not, installs them using the package manager determined earlier.
-
-**`setup_virtualenv_and_repo`** Function
-This function sets up a virtual environment, clones the Django application repository from GitHub, installs the required Python packages from requirements.txt, runs Django migrations, creates a Django superuser, modifies the config/settings.py file to set the database configuration, creates a pytest.ini file, modifies HTML file names in the repository, and runs the pytest test suite.
-
-**`run_django_server`** Function
-This function checks if the specified port is available. If not, exits with an error message. Otherwise, runs the Django development server on that port.
-
-**`main Function`**
-The main function calls all the other functions in order. This is the function that gets executed when the script is run.
+## --no-install
+Also script provides **`--no-install`** option which is helpfull when you use linux distro with unsupported package manager
 
 ## Conclusion
 This script simplifies the process of setting up a Django application by automating various tasks such as environment variable checks, package installations, virtual environment setup, repository cloning, migrations, superuser creation, and running the development server. Make sure to have the prerequisites installed and the required environment variables set in a `.env` file before running the script.
