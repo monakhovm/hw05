@@ -121,7 +121,7 @@ install_packages() {
             * ) echo "Please answer y/Y/n/N.";;
         esac
     done
-    if [ $answer -eq "YES" ]; then
+    if [ "$answer" == "YES" ]; then
         # If there are any packages to install, build the command and run it
         if [ ${#packages[@]} -gt 0 ]; then
             # Build the command as a single string
