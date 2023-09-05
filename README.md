@@ -32,6 +32,7 @@ The following environment variables must be set in a **.env** file located in th
 
 ## --no-install
 Also script provides **`--no-install`** option which is helpfull when you use linux distro with unsupported package manager
+Just be sure **`python3`** command responds to **python3.9** and later versions 
 
 ## Conclusion
 This script simplifies the process of setting up a Django application by automating various tasks such as environment variable checks, package installations, virtual environment setup, repository cloning, migrations, superuser creation, and running the development server. Make sure to have the prerequisites installed and the required environment variables set in a `.env` file before running the script.
