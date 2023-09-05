@@ -80,8 +80,8 @@ set_packages() {
     installed_python_major_version=$(echo $installed_python_version | cut -d '.' -f 1)
     installed_python_minor_version=$(echo $installed_python_version | cut -d '.' -f 2)
 
-    $available_python_major_version=$(echo $available_python_version | cut -d '.' -f 1)
-    $available_python_minor_version=$(echo $available_python_version | cut -d '.' -f 2)
+    available_python_major_version=$(echo $available_python_version | cut -d '.' -f 1)
+    available_python_minor_version=$(echo $available_python_version | cut -d '.' -f 2)
 
     if [[ "$installed_python_major_version$installed_python_minor_version" -lt 39 ]]; then
         if [[ "$available_python_major_version$available_python_minor_version" -lt 39 ]]; then
