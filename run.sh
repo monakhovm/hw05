@@ -191,7 +191,7 @@ run_django_server() {
 main() {
     check_env_vars
     check_python_version
-    get_package_manager
+    get_package_manager $1
 
     if [ "$1" != "--no-install" ]; then
         update_cache
