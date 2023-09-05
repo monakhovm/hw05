@@ -38,17 +38,19 @@ get_package_manager() {
         package_manager="yum"
     
     else
-        echo -e "${RED}Unsupported package manager${NC}"
-        echo -e "Please resolve needed dependencies:"
-        echo -e "\t- Python 3.9 and later"
-        echo -e "\t- python3-pip"
-        echo -e "\t- git"
-        echo -e "\t- gcc"
-        echo -e "\t- sed"
-        echo -e "\t- libpq-dev"
-        echo -e "\t- python-dev\n"
-        echo -e "And then run this script with '--no-install' parameter"
-        exit 1
+        if [ "$1" != "--no-install" ]; then  
+            echo -e "${RED}Unsupported package manager${NC}"
+            echo -e "Please resolve needed dependencies:"
+            echo -e "\t- Python 3.9 and later"
+            echo -e "\t- python3-pip"
+            echo -e "\t- git"
+            echo -e "\t- gcc"
+            echo -e "\t- sed"
+            echo -e "\t- libpq-dev"
+            echo -e "\t- python-dev\n"
+            echo -e "And then run this script with '--no-install' parameter"
+            exit 1
+        fi
     fi
 }
 
