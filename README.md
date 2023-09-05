@@ -28,6 +28,7 @@ The following environment variables must be set in a **.env** file located in th
 2. Make the script executable by running **chmod +x script_name.sh**.
 3. Create a `.env` file in the same directory as the script and set the required environment variables as mentioned in the **Prerequisites section**.
 4. Run the script using **./script_name.sh**.
+5. Open **`localhost:DJANGO_PORT/admin`** webpage.
 
 ## Script Details
 **`check_env_vars`** Function

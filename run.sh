@@ -18,7 +18,7 @@ check_env_vars() {
 
 check_python_version() {
     if [ -f $(command -v python3) ]; then
-        python=$(command-v python3);
+        python=$(command -v python3);
     
         installed_python_version=$($python -V | grep -oP '\d+\.\d+')
 
@@ -146,16 +146,13 @@ setup_virtualenv_and_repo() {
 
     DJANGO_SUPERUSER_PASSWORD=$DJANGO_SUPERUSER_PASSWORD python manage.py createsuperuser --username $DJANGO_SUPERUSER_USERNAME --email $DJANGO_SUPERUSER_EMAIL --noinput
 
-    echo "
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / '$SQLITE_DB_NAME',
-        }
-    }" >> config/settings.py
+    database_string="DATABASES"
 
-    echo "[pytest]
-    DJANGO_SETTINGS_MODULE=config.settings" > pytest.ini
+    if [ $(grep -Fq $database_string config/settings.py; echo $?) -ne 0 ]; then 
+	echo -e "DATABASES = {\n    'default': {\n        'ENGINE': 'django.db.backends.sqlite3',\n        'NAME': BASE_DIR / '$SQLITE_DB_NAME',\n    }\n}" >> config/settings.py;
+    fi
+	    
+    echo -e "[pytest]\nDJANGO_SETTINGS_MODULE=config.settings" > pytest.ini
 
     for file in $(grep -rnl -e 'test.copy.html' .); do
         sed -i 's/test copy.html/test.html/' $file
