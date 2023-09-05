@@ -112,7 +112,7 @@ set_packages() {
 }
 
 install_packages() {
-    echo -e "Application needs some dependecies. They are: $packages\nDo you want to install it?"
+    echo -e "Application needs some dependecies. They are: ${packages[*]}\nDo you want to install it?"
     while true; do
         read -p "Enter your choice (y/Y for 'yes' and n/N for 'no'): " choice
         case $choice in
