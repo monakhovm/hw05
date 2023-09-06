@@ -129,7 +129,7 @@ set_packages() {
 
 install_packages() {
     # Ask user if he wants to install additional packages
-    if [ -n ${packages[*]} ]; then
+    if [[ -n ${packages[*]} ]]; then
         echo -e "Application needs some dependecies. They are: ${packages[*]}\nDo you want to install it?"
         while true; do
             read -p "Enter your choice (y/Y for 'yes' and n/N for 'no'): " choice
