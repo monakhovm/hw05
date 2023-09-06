@@ -66,8 +66,6 @@ update_cache() {
 set_packages() {
     install_command="install"
     parameter="-y"
-    postgresql_lib=postgresql-devel
-
 
     if [ "$package_manager" == "apt" ]; then        
         available_python_version=$(apt-cache madison python3 | grep -oP '\d+\.\d+' | head -n 1)
@@ -77,6 +75,7 @@ set_packages() {
     else
         available_python_version=$($package_manager list python3 | grep 'python3' | grep -oP '\d+\.\d+' | head -n 1)
         devel_package="python${available_python_version}-devel"
+        postgresql_lib=postgresql-devel
     fi
 
     installed_python_major_version=$(echo $installed_python_version | cut -d '.' -f 1)
