@@ -129,39 +129,43 @@ set_packages() {
 
 install_packages() {
     # Ask user if he wants to install additional packages
-    # TODO: disable if all packages are installed
-    echo -e "Application needs some dependecies. They are: ${packages[*]}\nDo you want to install it?"
-    while true; do
-        read -p "Enter your choice (y/Y for 'yes' and n/N for 'no'): " choice
-        case $choice in
-            [Yy]* ) answer="YES"; break;;
-            [Nn]* ) answer="NO"; break;;
-            * ) echo "Please answer y/Y/n/N.";;
-        esac
-    done
+    if [ -n ${packages[*]} ]; then
+        echo -e "Application needs some dependecies. They are: ${packages[*]}\nDo you want to install it?"
+        while true; do
+            read -p "Enter your choice (y/Y for 'yes' and n/N for 'no'): " choice
+            case $choice in
+                [Yy]* ) answer="YES"; break;;
+                [Nn]* ) answer="NO"; break;;
+                * ) echo "Please answer y/Y/n/N.";;
+            esac
+        done
 
-    # If user agree
-    if [ "$answer" == "YES" ]; then
-        # If there are any packages to install, build the command and run it
-        if [ ${#packages[@]} -gt 0 ]; then
-            # Build the command as a single string
-            full_command="sudo $package_manager $install_command $parameter ${packages[*]}"
+        # If user agree
+        if [ "$answer" == "YES" ]; then
+            # If there are any packages to install, build the command and run it
+            if [ ${#packages[@]} -gt 0 ]; then
+                # Build the command as a single string
+                full_command="sudo $package_manager $install_command $parameter ${packages[*]}"
 
-            echo -e "${BLUE}Installing required packages: ${packages[*]}${NC}"
-            eval $full_command
+                echo -e "${BLUE}Installing required packages: ${packages[*]}${NC}"
+                eval $full_command
 
-            # Check that the command completed successfully
-            if [ $? -ne 0 ]; then
-                echo -e "${RED}Package installation failed. Please check the output above for more details.${NC}"
-                exit 1
+                # Check that the command completed successfully
+                if [ $? -ne 0 ]; then
+                    echo -e "${RED}Package installation failed. Please check the output above for more details.${NC}"
+                    exit 1
+                else
+                    echo -e "${GREEN}All required packages installed successfully.${NC}"
+                fi
             else
-                echo -e "${GREEN}All required packages installed successfully.${NC}"
+                echo -e "${GREEN}All required packages are already installed.${NC}"
             fi
         else
-            echo -e "${GREEN}All required packages are already installed.${NC}"
+            exit 1
         fi
+
     else
-        exit 1
+        return
     fi
 }
 
