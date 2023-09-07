@@ -68,7 +68,6 @@ get_package_manager() {
 }
 
 update_cache() {
-
     # Update package manager packages cache
     if [ "$package_manager" == "apt" ]; then
         sudo $package_manager update
@@ -174,7 +173,6 @@ install_packages() {
 }
 
 setup_virtualenv_and_repo() {
-
     # Get virtualenv module
     $python -m pip install virtualenv
 
