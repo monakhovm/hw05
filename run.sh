@@ -1,13 +1,17 @@
 #!/bin/env bash
 
-# Get environment variables from .env 
-source .env
+set_colors() {
+    # Set colors
+    RED='\033[0;31m'
+    GREEN='\033[0;32m'
+    BLUE='\033[0;94m'
+    NC='\033[0m' # No Color
+}
 
-# Set colors
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-BLUE='\033[0;94m'
-NC='\033[0m' # No Color
+get_env_vars(){
+    # Get environment variables from .env 
+    source .env
+}
 
 check_env_vars() {
     # Set needed environment variables
@@ -245,6 +249,8 @@ run_django_server() {
 }
 
 main() {
+    set_colors
+    get_env_vars
     check_env_vars
     check_python_version
     get_package_manager $1
