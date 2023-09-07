@@ -193,7 +193,26 @@ setup_virtualenv_and_repo() {
     python manage.py migrate
 
     # Create django superuser
-    DJANGO_SUPERUSER_PASSWORD=$DJANGO_SUPERUSER_PASSWORD python manage.py createsuperuser --username $DJANGO_SUPERUSER_USERNAME --email $DJANGO_SUPERUSER_EMAIL --noinput
+    if [ $(DJANGO_SUPERUSER_PASSWORD=$DJANGO_SUPERUSER_PASSWORD python manage.py createsuperuser --username $DJANGO_SUPERUSER_USERNAME --email $DJANGO_SUPERUSER_EMAIL --noinput 2>/dev/null; echo $?) -ne 0 ]; then
+        echo -e "${RED}This username already taken. Are you sure you want to continue?${NC}"
+        while true; do
+            read -p "Enter your choice (y/Y for 'yes' and n/N for 'no'): " choice
+            case $choice in
+                [Yy]* ) answer="YES"; break;;
+                [Nn]* ) answer="NO"; break;;
+                * ) echo "Please answer y/Y/n/N.";;
+            esac
+        done
+
+        # If user agree
+        if [ "$answer" == "YES" ]; then
+            return
+        else
+            echo -e "${RED}User cancellation...${NC}\n"
+            exit 1
+        fi
+    fi
+    
 
     # Automatic edit od settings.py to add DB parameters
     database_string="DATABASES"
